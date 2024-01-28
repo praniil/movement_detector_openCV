@@ -1,1 +1,2 @@
-print("hello world")
+from MovementDetector.movement_detector import MovementDetector
+MovementDetector()
