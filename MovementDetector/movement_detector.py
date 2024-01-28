@@ -2,6 +2,14 @@ import cv2
 import pygame
 
 def MovementDetector():
+    pygame.mixer.init()
+
+    #error handling for the soundfile to open
+    try:
+        sound = pygame.mixer.Sound('/home/pranil/pythonProjects/opencv_movement_detector/MovementDetector/beep-01a.wav')
+    except pygame.error as e:
+        print("Error loading sound file: ", e)
+        return
     
     #initial frame before any movement is detected
     cap = cv2.VideoCapture(0)
@@ -33,6 +41,7 @@ def MovementDetector():
 
         for contour in contours:
             if cv2.contourArea(contour) > 1000:
+                sound.play()
                 x, y, w, h = cv2.boundingRect(contour)
                 cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255,0), 2)
         
